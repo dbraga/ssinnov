@@ -31,12 +31,14 @@
         var array = CSVToArray(content) ;
         var markers = new L.MarkerClusterGroup({showCoverageOnHover:false});
         for (var i=1; i< array.length;i++){
+          if (array[i] != ""){
           var geohash = array[i][1];
           var employeeId = array[i][0];
           var latlong = decodeGeoHash(geohash) ;
           marker = new L.Marker( new L.LatLng(latlong.latitude[0], latlong.longitude[0]) )
           marker.bindPopup("<b>"+employeeId+"</b>").openPopup();
           markers.addLayer(marker);
+        }
         }
           map.addLayer(markers); 
       };
