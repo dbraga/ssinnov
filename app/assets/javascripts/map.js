@@ -3,7 +3,7 @@ var map ;
 var markers;
 var truliaUrl;
 var markersArray;
-var initialZoomLevel = 12;
+var initialZoomLevel = 11;
 
 
 
@@ -34,27 +34,36 @@ var initialZoomLevel = 12;
     // geojson.resetStyle(e.target);
     // }
 
-// function getColor(d) {
-// return d > 1000 ? '#800026' :
-// d > 500  ? '#BD0026' :
-// d > 200  ? '#E31A1C' :
-// d > 100  ? '#FC4E2A' :
-// d > 50   ? '#FD8D3C' :
-// d > 20   ? '#FEB24C' :
-// d > 10   ? '#FED976' :
-//       '#FFEDA0';
-// }
+function getColor(d) {
+return d > 1000 ? '#800026' :
+d > 500  ? '#BD0026' :
+d > 200  ? '#E31A1C' :
+d > 100  ? '#FC4E2A' :
+d > 50   ? '#FD8D3C' :
+d > 20   ? '#FEB24C' :
+d > 10   ? '#FED976' :
+      '#FFEDA0';
+}
 
-// function style(feature) {
-// return {
-// fillColor: getColor(feature.properties.density),
-// weight: 2,
-// opacity: 1,
-// color: 'white',
-// dashArray: '3',
-// fillOpacity: 0.7
-// };
-// }
+function get_random_color() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
+function style(feature) {
+return {
+fillColor: get_random_color(),
+weight: 2,
+opacity: 1,
+color: 'white',
+dashArray: '3',
+fillOpacity: 0.4
+};
+}
 
 $(document).ready(function() {
   // Handler for .ready() called.
@@ -69,7 +78,10 @@ $(document).ready(function() {
 		
 
     var nert_tiles = JSON.parse(geojson);
-    L.geoJson( nert_tiles ).addTo( map );
+    L.geoJson( nert_tiles, {style: style} ).addTo( map );
+
+    // console.dir(test);
+    console.dir(map);
 
     // Check for the various File API support.
     if (window.File && window.FileReader && window.FileList && window.Blob) {

@@ -1,20 +1,20 @@
 
-<div id="map"></div>
+
 
 
 <!-- <input type="file" id="files" name="files[]" multiple /> -->
 <output id="list"></output>
 
+<div class="container-fluid"> 
+  <div class="row-fluid"> 
+    <div class="span6"> <div id="map"></div> </div>
+    <div class="span6"> <div id="drop_zone">Drop files here</div> <output id="list"></output> </div>
+  </div>
+</div>
 
-<div id="drop_zone">Drop files here</div>
-<output id="list"></output>
+
 
 <script>
-
-
-
-
-
   function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -29,13 +29,16 @@
       reader.onload = function(event) {
         var content = event.target.result;
         var array = CSVToArray(content) ;
+        var markers = new L.MarkerClusterGroup({showCoverageOnHover:false});
         for (var i=1; i< array.length;i++){
           var geohash = array[i][1];
           var employeeId = array[i][0];
           var latlong = decodeGeoHash(geohash) ;
-          marker = L.marker( new L.LatLng(latlong.latitude[0], latlong.longitude[0])).addTo(map);
+          marker = new L.Marker( new L.LatLng(latlong.latitude[0], latlong.longitude[0]) )
           marker.bindPopup("<b>"+employeeId+"</b>").openPopup();
+          markers.addLayer(marker);
         }
+          map.addLayer(markers); 
       };
 
   		reader.onerror = function(event) {
@@ -51,6 +54,7 @@
                   '</li>');
     }
 
+
     document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
   }
 
@@ -65,3 +69,4 @@
   dropZone.addEventListener('dragover', handleDragOver, false);
   dropZone.addEventListener('drop', handleFileSelect, false);
 </script>
+
