@@ -1,0 +1,16 @@
+#map { 
+	margin-top:20px;
+	height: 500px; 
+}
+
+#drop_zone {
+margin-top:20px;
+border: 2px dashed #BBB;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+padding: 25px;
+text-align: center;
+font: 20pt bold,"Vollkorn";
+color: #BBB;
+}
