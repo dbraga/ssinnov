@@ -59,9 +59,9 @@ return {
 fillColor: get_random_color(),
 weight: 2,
 opacity: 1,
-color: 'white',
+color: 'red',
 dashArray: '3',
-fillOpacity: 0.4
+fillOpacity: 0
 };
 }
 
